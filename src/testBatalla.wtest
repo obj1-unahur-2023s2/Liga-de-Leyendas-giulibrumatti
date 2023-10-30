@@ -1,0 +1,19 @@
+import items.*
+import campeones.*
+import batallas.*
+import oleadasDeMinions.*
+
+describe "Test parte 1"{
+	const anillo = new AnilloDeDoran(peso=200)
+	const tomo = new TomoAmplificador(peso=1000)
+	const campeon1 = new Campeon(puntosDeVida=20, 
+		puntosDeAtaque=10, items=[anillo,tomo])
+	
+	test "total de 140 de vida"{
+		assert.equals(140, campeon1.cantidadTotalDeVida())
+	}
+	
+	test "puntos de ataque 40"{
+		assert.equals(40, campeon1.cantidadTotalDeAtaque())
+	}
+}

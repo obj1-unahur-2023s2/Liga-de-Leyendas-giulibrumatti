@@ -2,6 +2,7 @@ import campeones.*
 
 class Item{
 	var peso
+	var acumuladoAtaque = 0
 	
 	method puntosDeVidaQueOtorga(unCampeon){
 		if(peso < 500){
@@ -13,9 +14,11 @@ class Item{
 	
 	method puntosDeAtaqueQueOtorga(unCampeon){
 		if(peso < 500){
-			return 10 + self.condicionaAdicionalAtaque(unCampeon)
+			acumuladoAtaque = unCampeon.puntosDeAtaque() +10 + self.condicionaAdicionalAtaque(unCampeon)
+			return acumuladoAtaque
 		}else{
-			return 5 + self.condicionaAdicionalAtaque(unCampeon)
+			acumuladoAtaque =  unCampeon.puntosDeAtaque() + 5 + self.condicionaAdicionalAtaque(unCampeon)
+			return acumuladoAtaque
 		}
 	}
 	
@@ -36,7 +39,8 @@ class TomoAmplificador inherits Item{
 	override method condicionAdicionalSumaVida(unCampeon) = 
 	unCampeon.acumuladoDeDanio() * 0.25
 	
-	override method condicionaAdicionalAtaque(unCampeon) = unCampeon.puntosDeAtaque() * 0.1
+	override method condicionaAdicionalAtaque(unCampeon) = 
+	acumuladoAtaque * 0.1
 }
 
 class SombreroDeRabadon inherits TomoAmplificador{

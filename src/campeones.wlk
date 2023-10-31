@@ -17,13 +17,13 @@ class Campeon {
 	
 	method cantidadTotalDeVida() = puntosDeVida + self.totalVidaPorItems()
 	
-	method cantidadTotalDeAtaque() = puntosDeAtaque + self.totalPuntosDeAtaquePorItems()
+	method cantidadTotalDeAtaque() =  self.totalAtaquesPorItems()
 	
 	method totalVidaPorItems() = items.sum({i => i.puntosDeVidaQueOtorga(self)})
 	
-	method totalPuntosDeAtaquePorItems() = items.sum({i => i.puntosDeAtaqueQueOtorga(self)})
+	method totalAtaquesPorItems() = items.sum({i => i.puntosDeAtaqueQueOtorga(self)})
 	
-	method obtenerPuntosDeDanioAcumulados(enBatalla){
+	method aplicarDaniosAcumulados(enBatalla){
 		acumuladoDeDanio += enBatalla.puntosDeDanioAcumuladosCampeon()
 	}
 	

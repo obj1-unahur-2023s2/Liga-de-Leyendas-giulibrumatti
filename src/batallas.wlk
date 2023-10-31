@@ -1,6 +1,6 @@
 class Batalla {
-	const property campeon
-	const property oleadaDeMinions
+	var campeon
+	var oleadaDeMinions
 	
 	method puntosDeDanioAcumuladosCampeon() = oleadaDeMinions.danioProducido()
 	

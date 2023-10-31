@@ -3,7 +3,7 @@ import campeones.*
 import batallas.*
 import oleadasDeMinions.*
 
-describe "Test parte 1"{
+describe "Test parte 1 sin batalla"{
 	const anillo = new AnilloDeDoran(peso=200)
 	const tomo = new TomoAmplificador(peso=1000)
 	const campeon1 = new Campeon(puntosDeVida=20, 
@@ -15,5 +15,29 @@ describe "Test parte 1"{
 	
 	test "puntos de ataque 40"{
 		assert.equals(40, campeon1.cantidadTotalDeAtaque())
+	}
+}
+
+describe "Testa parte 1 con batalla"{
+	const anillo = new AnilloDeDoran(peso=200)
+	const tomo = new TomoAmplificador(peso=1000)
+	const campeon1 = new Campeon(puntosDeVida=20, 
+		puntosDeAtaque=10, items=[anillo,tomo])
+	const minion = new OleadasDeMinions(plusDanio=40)
+	const batalla = new Batalla(campeon=campeon1, oleadaDeMinions=minion)
+
+		
+	method inicial(){
+		campeon1.aplicarDaniosAcumulados(batalla)
+	}
+	
+	test "total de 150 de vida"{
+		self.inicial()
+		assert.equals(150, campeon1.cantidadTotalDeVida())
+	}
+	
+	test "puntos de ataque 44"{
+		self.inicial()
+		assert.equals(44, campeon1.cantidadTotalDeAtaque())
 	}
 }

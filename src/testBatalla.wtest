@@ -7,7 +7,7 @@ describe "Test parte 1 sin batalla"{
 	const anillo = new AnilloDeDoran(peso=200)
 	const tomo = new TomoAmplificador(peso=1000)
 	const campeon1 = new Campeon(puntosDeVida=20, 
-		puntosDeAtaque=10, items=[anillo,tomo])
+		puntosDeAtaque=10, items=[anillo,tomo],unidadesBloqueo=2)
 	
 	test "total de 140 de vida"{
 		assert.equals(140, campeon1.cantidadTotalDeVida())
@@ -21,14 +21,19 @@ describe "Test parte 1 sin batalla"{
 describe "Testa parte 1 con batalla"{
 	const anillo = new AnilloDeDoran(peso=200)
 	const tomo = new TomoAmplificador(peso=1000)
-	const campeon1 = new Campeon(puntosDeVida=20, 
-		puntosDeAtaque=10, items=[anillo,tomo])
-	const minion = new OleadasDeMinions(plusDanio=40)
+	const sombre = new SombreroDeRabadon(peso=200)
+	
+	const campeon1 = new Campeon(puntosDeVida=20,puntosDeAtaque=10, items=[anillo,tomo],unidadesBloqueo=2)
+	const minion = new OleadasDeMinions(plusDanio=40, cantidadDeMinios=30)
+	
 	const batalla = new Batalla(campeon=campeon1, oleadaDeMinions=minion)
-
 		
 	method inicial(){
-		campeon1.aplicarDaniosAcumulados(batalla)
+		campeon1.batallarContra(minion)
+	}
+	
+	method equiparSombrero(){
+		campeon1.equiparItem(sombre)
 	}
 	
 	test "total de 150 de vida"{
@@ -40,4 +45,28 @@ describe "Testa parte 1 con batalla"{
 		self.inicial()
 		assert.equals(44, campeon1.cantidadTotalDeAtaque())
 	}
+	
+	test "puntos de vida 190 con sombrero"{
+		self.equiparSombrero()
+		self.inicial()
+		assert.equals(190, campeon1.cantidadTotalDeVida())
+	}
+	
+	test "puntos de ataque 60 con sombrero"{
+		self.equiparSombrero()
+		self.inicial()
+		assert.equals(60, campeon1.cantidadTotalDeAtaque())
+	}
+	
+	test "campeon 2 unidades bloqueo"{
+		assert.equals(2, campeon1.unidadesBloqueo())
+	}
+	
+	test "campeon 2 unidades de bloqueo y 40 daño, batalla y queda 40 de daño"{
+		batalla.batallar()
+		assert.equals(40, campeon1.puntosDanio())
+		assert.equals(1, campeon1.unidadesBloqueo())
+	}
+	
+
 }
